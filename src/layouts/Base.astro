@@ -1,0 +1,33 @@
+---
+import '@fontsource-variable/material-symbols-outlined'
+import '@fontsource/kaushan-script/latin.css'
+import '@fontsource/open-sans/latin.css'
+
+import '../styles.scss'
+
+const { title } = Astro.props
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title ? `${title} | FantaVision` : title}</title>
+    </head>
+    <body>
+        <nav>
+            <a class="logo" href="/">FantaVision</a>
+            <div class="links">
+                <a class="button flat" href="/regolamento">Regolamento</a>
+                <a class="button flat" href="/about">About</a>
+                <a class="button flat" href="/login">Login</a>
+            </div>
+        </nav>
+        <main>
+            <slot />
+        </main>
+        <footer>&copy; Giulio Agnello & Antonio De Lucreziis</footer>
+    </body>
+</html>
