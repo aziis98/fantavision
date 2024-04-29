@@ -14,3 +14,8 @@ $ bun install
 $ bun dev
 ```
 
+## Deploy
+
+```bash
+$ bun run build
+```
