@@ -211,6 +211,10 @@ input[type='text'] {
     padding: 2rem;
     border-radius: 1rem;
 
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+
     background: hsla(0, 0%, 0%, 0.2);
     backdrop-filter: blur(50px);
     box-shadow: 0 0 2rem hsla(0, 0%, 0%, 0.2);
@@ -258,6 +262,16 @@ input[type='text'] {
 
 .grow {
     flex-grow: 1;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
 }
 
 // Structure

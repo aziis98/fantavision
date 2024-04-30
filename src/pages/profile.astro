@@ -1,4 +1,5 @@
 ---
+import { UserEmail } from '../components/User'
 import Base from '../layouts/Base.astro'
 ---
 
@@ -6,6 +7,9 @@ import Base from '../layouts/Base.astro'
     <div class="title">Profilo</div>
     <div class="card v-box">
         <h1>Imposta un nickname</h1>
+        <div class="text-center">
+            Loggato come <UserEmail client:only="preact" />
+        </div>
         <div class="h-box">
             <input class="grow" type="text" placeholder="nickname..." />
             <button>OK</button>
