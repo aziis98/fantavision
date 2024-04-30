@@ -16,10 +16,12 @@
     "@fontsource/kaushan-script": "^5.0.20",
     "@fontsource/open-sans": "^5.0.28",
     "astro": "^4.7.0",
+    "katex": "^0.16.10",
     "preact": "^10.20.2",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@types/katex": "^0.16.7",
     "sass": "^1.75.0"
   }
 }

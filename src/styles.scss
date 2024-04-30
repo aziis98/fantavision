@@ -19,7 +19,7 @@ img {
 
 // Sass Headings
 
-$base-font-size: 22px;
+$base-font-size: 16px;
 $heading-scale: 1.33;
 
 @function pow($number, $exponent) {
@@ -38,8 +38,49 @@ $heading-scale: 1.33;
     h#{$i} {
         $factor: pow($heading-scale, 5 - $i);
 
-        font-family: 'Kaushan Script', cursive;
+        font-family: 'Open Sans', sans-serif;
         font-size: $base-font-size * $factor;
+
+        background: #ffc02e;
+        background: linear-gradient(to top left, #ffc02e 0%, #abf4f2 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        * + & {
+            margin-top: 1rem;
+        }
+
+        // text-shadow: 0 0 2rem #ffffff44;
+
+        & + p {
+            margin-top: 1rem;
+        }
+    }
+}
+
+.text {
+    max-width: 50rem;
+
+    p {
+        text-align: left;
+        line-height: 1.5;
+    }
+
+    ul {
+        margin: 1rem 0;
+        color: #fff;
+        list-style-type: disc;
+
+        li {
+            margin: 0.5rem 0;
+        }
+    }
+
+    .katex-display {
+        margin: 1rem 0;
+        padding: 1rem;
+        font-size: 110%;
     }
 }
 
@@ -78,6 +119,12 @@ p {
 
     user-select: none;
 
+    transition: transform 150ms ease-out;
+
+    &:hover {
+        transform: scale(1.1) rotate(-2deg);
+    }
+
     @media (max-width: 800px) {
         font-size: 64px;
     }
@@ -101,6 +148,12 @@ p {
     text-shadow: 0 0 2rem #ffffff44;
 
     user-select: none;
+
+    transition: transform 150ms ease-out;
+
+    &:hover {
+        transform: scale(1.1) rotate(-2deg);
+    }
 }
 
 button,
@@ -131,6 +184,29 @@ button,
     cursor: pointer;
 }
 
+input[type='text'] {
+    padding: 0.5rem 1rem;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #fff;
+    background: hsla(0, 0%, 100%, 0.15);
+
+    transition: background 64ms ease-in-out;
+
+    outline: none;
+
+    &:focus {
+        background: hsla(0, 0%, 100%, 0.3);
+    }
+
+    &::placeholder {
+        color: #fff8;
+    }
+}
+
 .card {
     padding: 2rem;
     border-radius: 1rem;
@@ -140,14 +216,8 @@ button,
     box-shadow: 0 0 2rem hsla(0, 0%, 0%, 0.2);
 }
 
-// .form {
-//     background: hsla(0, 0%, 100%, 0.1);
-
-//     box-shadow: 0 0 2rem hsla(0, 0%, 0%, 0.4);
-// }
-
 .svg-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: -1;
 
@@ -164,6 +234,30 @@ button,
     color: #fff;
     font-size: 64px;
     font-weight: 700;
+}
+
+.h-box {
+    // display: grid;
+    // grid-auto-flow: column;
+    // grid-auto-columns: auto;
+    display: flex;
+    flex-direction: row;
+
+    gap: 1rem;
+}
+
+.v-box {
+    // display: grid;
+    // grid-auto-flow: row;
+    // grid-auto-rows: auto;
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+}
+
+.grow {
+    flex-grow: 1;
 }
 
 // Structure
@@ -205,8 +299,12 @@ body {
 
             text-shadow: none;
 
+            // &:hover {
+            //     transform: scale(1.1);
+            // }
+
             &:hover {
-                transform: scale(1.1);
+                transform: scale(1.1) rotate(+2deg);
             }
         }
 
@@ -220,6 +318,7 @@ body {
     }
 
     & > footer {
+        font-size: 18px;
         font-weight: 500;
 
         background: hsla(0, 0%, 0%, 0.2);
@@ -235,7 +334,8 @@ body {
     }
 
     main {
-        padding-top: 8rem;
+        padding-top: 5rem;
+        padding-bottom: 3rem;
 
         display: flex;
         flex-direction: column;

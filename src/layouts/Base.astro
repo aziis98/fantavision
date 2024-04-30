@@ -5,7 +5,7 @@ import '@fontsource/open-sans/latin.css'
 
 import '../styles.scss'
 
-const { title, isHomepage } = Astro.props
+const { title, isHomepage, hasMath } = Astro.props
 ---
 
 <html lang="en">
@@ -22,6 +22,27 @@ const { title, isHomepage } = Astro.props
         <meta property="og:site_name" content="FantaVision" />
         <meta property="og:description" content="Sito del FantaVision" />
         <meta property="og:image" content="/favicon/android-chrome-512x512.png" />
+
+        {
+            hasMath && (
+                <>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+                    <script is:inline type="module">
+                        import 'https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.mjs'; 
+                        import renderMathInElement from "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.mjs";
+
+                        document.addEventListener('DOMContentLoaded', () => {
+                            renderMathInElement(document.body, {
+                                delimiters: [
+                                    { left: '$$', right: '$$', display: true },
+                                    { left: '$', right: '$', display: false },
+                                ],
+                            });
+                        });
+                    </script>
+                </>
+            )
+        }
 
         <title>{title ? `${title} | FantaVision` : 'FantaVision'}</title>
     </head>
