@@ -1,7 +1,7 @@
-import { useUser } from '../client/hooks.jsx'
+import { useUserContext } from '../client/hooks.jsx'
 
 export const UserEmail = ({}) => {
-    const [user] = useUser()
+    const { user } = useUserContext()
 
     if (!user) {
         return <span class="user email">???</span>

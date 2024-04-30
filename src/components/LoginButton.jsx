@@ -2,7 +2,7 @@ import { useEffect } from 'preact/hooks'
 import { useUser } from '../client/hooks.jsx'
 
 export const LoginButton = ({}) => {
-    const [user, login] = useUser()
+    const { user, login } = useUser()
 
     useEffect(() => {
         console.log('[Login]', user?.email)
@@ -17,6 +17,6 @@ export const LoginButton = ({}) => {
 }
 
 export const LogoutButton = ({}) => {
-    const [, , logout] = useUser()
+    const { logout } = useUser()
     return <button onClick={() => logout()}>Logout</button>
 }

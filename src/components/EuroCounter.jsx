@@ -1,24 +1,15 @@
-import { useEffect, useState } from 'preact/hooks'
 import { db } from '../client/firebase.js'
 
-import { doc, getDoc } from 'firebase/firestore'
+import { doc } from 'firebase/firestore'
+import { useFirebaseDoc } from '../client/hooks.jsx'
 
 export const EuroCounter = ({}) => {
-    const [euroVisionDeadline, setEuroVisionDeadline] = useState(null)
-
-    useEffect(async () => {
-        const d = await getDoc(doc(db, 'partite', 'eurovision-2024'))
-        const data = d.data()
-
-        console.log(data)
-
-        const deadline = new Date(data.scadenza.toDate())
-        setEuroVisionDeadline(deadline)
-    }, [])
-
-    if (!euroVisionDeadline) {
+    const partitaDoc = useFirebaseDoc(doc(db, 'partite', 'eurovision-2024'))
+    if (partitaDoc.loading) {
         return <div class="euro-counter">???</div>
     }
+
+    const euroVisionDeadline = new Date(partitaDoc.data.scadenza.toDate())
 
     const currentDate = new Date()
 

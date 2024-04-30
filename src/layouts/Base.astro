@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/material-symbols-outlined'
+import '@fontsource-variable/material-symbols-outlined/full.css'
 import '@fontsource/kaushan-script/latin.css'
 import '@fontsource/open-sans/latin.css'
 
@@ -22,6 +22,8 @@ const { title, isHomepage, hasMath } = Astro.props
         <meta property="og:site_name" content="FantaVision" />
         <meta property="og:description" content="Sito del FantaVision" />
         <meta property="og:image" content="/favicon/android-chrome-512x512.png" />
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
         {
             hasMath && (
@@ -47,35 +49,7 @@ const { title, isHomepage, hasMath } = Astro.props
         <title>{title ? `${title} | FantaVision` : 'FantaVision'}</title>
     </head>
     <body>
-        <svg
-            class="svg-background"
-            id="visual"
-            preserveAspectRatio="none"
-            viewBox="0 0 1920 1080"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            version="1.1"
-        >
-            <defs>
-                <filter id="blur1" x="-10%" y="-10%" width="120%" height="120%">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend
-                        mode="normal"
-                        in="SourceGraphic"
-                        in2="BackgroundImageFix"
-                        result="shape"></feBlend>
-                    <feGaussianBlur stdDeviation="327" result="effect1_foregroundBlur"></feGaussianBlur>
-                </filter>
-            </defs>
-            <rect width="1920" height="1080" fill="#000"></rect>
-            <g filter="url(#blur1)">
-                <circle cx="29" cy="487" fill="#9E08AB" r="700"></circle>
-                <circle cx="1329" cy="231" fill="#5108B4" r="700"></circle>
-                <circle cx="1545" cy="889" fill="#9E08AB" r="600"></circle>
-                <circle cx="331" cy="198" fill="#9E08AB" r="700"></circle>
-                <circle cx="200" cy="832" fill="#5108B4" r="700"></circle>
-                <circle cx="822" cy="210" fill="#5108B4" r="500"></circle>
-            </g>
-        </svg>
+        <img class="svg-background" src="/blurry-gradient.svg" alt="blurry gradient">
 
         <nav>
             {
