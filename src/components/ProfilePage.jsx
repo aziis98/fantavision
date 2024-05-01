@@ -1,10 +1,11 @@
 import { doc, setDoc } from 'firebase/firestore'
 import { UserContextProvider, useFirebaseDoc, useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
-import { Icon } from './Icon.jsx'
+
 import { UserEmail } from './User.jsx'
 import { db } from '../client/firebase.js'
 import { useState } from 'preact/hooks'
 import { LeaderboardSorter } from './LeaderboardSorter.jsx'
+import { Spinner } from './Spinner.jsx'
 
 const NicknameChooseCard = ({}) => {
     const { user } = useUserContext()
@@ -40,11 +41,7 @@ const NicknameChooseCard = ({}) => {
 const Profile = ({}) => {
     const { user, loading, logout } = useUserContext()
     if (loading) {
-        return (
-            <div class="loading">
-                <Icon name="sync" />
-            </div>
-        )
+        return <Spinner />
     }
 
     if (!user) {
@@ -56,8 +53,6 @@ const Profile = ({}) => {
     if (!partitaUser) {
         return
     }
-
-    console.log('[Profile]', partitaUser)
 
     return (
         <>
