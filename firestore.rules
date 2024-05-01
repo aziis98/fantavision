@@ -8,7 +8,7 @@ service cloud.firestore {
 
     match /partite/{partita} {
       function isAdmin() {
-        return request.auth != null && get(/databases/$(database)/documents/partite/$(partita)/utenti/$(request.auth.email)).data.admin == true;
+        return request.auth != null && get(/databases/$(database)/documents/partite/$(partita)/secret/$(request.auth.email)).data.admin == true;
       }
 
       allow read: if true;
