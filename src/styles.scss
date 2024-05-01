@@ -1,3 +1,5 @@
+$device-mid: 800px;
+
 *,
 *::before,
 *::after {
@@ -130,6 +132,15 @@ p {
     }
 }
 
+.cool-text {
+    background: #ffc02e;
+    background: linear-gradient(to bottom right, #ffc02e 0%, #abf4f2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.25;
+}
+
 .title {
     font-family: 'Open Sans', sans-serif;
     font-size: 56px;
@@ -182,6 +193,9 @@ button,
     }
 
     cursor: pointer;
+
+    // boh, this might be a reasonable default
+    place-self: center;
 }
 
 input[type='text'] {
@@ -221,6 +235,25 @@ input[type='text'] {
     backdrop-filter: blur(50px);
 
     box-shadow: 0 0 2rem hsla(0, 0%, 0%, 0.2);
+
+    min-width: 800px;
+
+    h2 {
+        text-align: center;
+    }
+
+    @media screen and (max-width: $device-mid) {
+        padding: 1rem;
+        border-radius: 1rem;
+        width: 100%;
+        min-width: initial;
+
+        --gap: 1rem;
+
+        h1 {
+            padding: 0.25rem 0;
+        }
+    }
 }
 
 .svg-background {
@@ -277,12 +310,17 @@ input[type='text'] {
     justify-content: center;
 }
 
+.centered {
+    align-items: center;
+}
+
 .text-center {
     text-align: center;
 }
 
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: sub;
 }
 
 @keyframes spin {
@@ -319,22 +357,13 @@ input[type='text'] {
 
         background: hsla(0, 0%, 100%, 0.2);
 
-        display: grid;
+        --gap: 0.75rem;
 
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto auto;
+        & > * {
+            --gap: 0.25rem;
+        }
 
-        grid-template-areas:
-            'picture nation-name'
-            'picture singer-name'
-            'picture canzone';
-
-        gap: 0.25rem 1rem;
-
-        & > .picture {
-            grid-area: picture;
-            place-self: center;
-
+        .picture {
             display: grid;
             place-content: center;
 
@@ -349,31 +378,34 @@ input[type='text'] {
             font-weight: 700;
         }
 
-        & > .nation-name {
-            grid-area: nation-name;
+        .card-title {
+            grid-area: card-title;
 
-            font-size: 20px;
+            font-size: 21px;
             font-weight: 600;
         }
 
-        & > .singer-name {
-            grid-area: singer-name;
+        .card-subtitle {
+            grid-area: card-subtitle;
 
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 400;
-        }
 
-        & > .canzone {
-            grid-area: canzone;
+            align-items: center;
 
-            font-size: 15px;
-            font-weight: 400;
+            padding-bottom: 0.25rem;
         }
 
         transition: background 64ms ease-out;
 
         &:hover {
             background: hsla(0, 0%, 100%, 0.3);
+        }
+
+        @media screen and (max-width: $device-mid) {
+            min-width: initial;
+            width: 100%;
+            max-width: initial;
         }
     }
 
@@ -386,6 +418,11 @@ input[type='text'] {
         min-height: 15rem;
 
         align-items: center;
+
+        @media screen and (max-width: $device-mid) {
+            padding: 0;
+            --gap: 0.5rem;
+        }
     }
 
     &.editor {
@@ -423,6 +460,27 @@ input[type='text'] {
                 min-height: 15rem;
 
                 box-shadow: inset 0 0 0.5rem hsla(0, 0%, 0%, 0.4);
+            }
+        }
+
+        @media screen and (max-width: $device-mid) {
+            grid-template-columns: 1fr;
+
+            & > .column {
+                padding: 0;
+                position: relative;
+
+                & > .drag-region {
+                    min-height: 10rem;
+                }
+            }
+
+            & > .source {
+                grid-row: 2;
+            }
+
+            & > .target {
+                grid-row: 1;
             }
         }
     }
@@ -521,7 +579,7 @@ body {
 
 // Media Queries
 
-@media (max-width: 800px) {
+@media (max-width: $device-mid) {
     $base-font-size: 16px;
     $heading-scale: 1.25;
 

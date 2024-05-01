@@ -4,6 +4,21 @@ import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../client/firebase.js'
 import { Spinner } from './Spinner.jsx'
 import { useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
+import { Icon } from './Icon.jsx'
+
+const NationCard = ({ place, nazione, cantante, canzone, ...rest }) => {
+    return (
+        <div class="nation h-box centered" {...rest}>
+            <div class="picture">{place ?? ''}</div>
+            <div class="v-box">
+                <div class="card-title cool-text">{nazione}</div>
+                <div class="card-subtitle">
+                    {cantante} &bull; {canzone}
+                </div>
+            </div>
+        </div>
+    )
+}
 
 export const LeaderboardDesktopEditor = ({ leaderboard, setLeaderboard }) => {
     const [temporaryLeaderboard, setTemporaryLeaderboard] = useState(leaderboard)
@@ -20,12 +35,14 @@ export const LeaderboardDesktopEditor = ({ leaderboard, setLeaderboard }) => {
                 </button>
             </div>
             <div class="leaderboard editor">
-                <div class="column">
+                <div class="source column">
                     <h3>Partecipanti</h3>
                     <div class="drag-region v-box">
                         {CANTANTI.filter(({ id }) => !temporaryLeaderboard.includes(id)).map(({ id, nazione, cantante, canzone }) => (
-                            <div
-                                class="nation"
+                            <NationCard
+                                nazione={nazione}
+                                cantante={cantante}
+                                canzone={canzone}
                                 onClick={() => {
                                     if (temporaryLeaderboard.includes(id)) {
                                         setTemporaryLeaderboard([...temporaryLeaderboard.filter(i => i !== id), id])
@@ -33,16 +50,11 @@ export const LeaderboardDesktopEditor = ({ leaderboard, setLeaderboard }) => {
                                         setTemporaryLeaderboard([...temporaryLeaderboard, id])
                                     }
                                 }}
-                            >
-                                <div class="picture"></div>
-                                <div class="nation-name">{nazione}</div>
-                                <div class="singer-name">{cantante}</div>
-                                <div class="canzone">{canzone}</div>
-                            </div>
+                            />
                         ))}
                     </div>
                 </div>
-                <div class="column">
+                <div class="target column">
                     <h3>La tua Classifica</h3>
                     <div class="drag-region v-box">
                         {temporaryLeaderboard.map((id, i) => {
@@ -50,17 +62,15 @@ export const LeaderboardDesktopEditor = ({ leaderboard, setLeaderboard }) => {
                             const posto = i + 1
 
                             return (
-                                <div
-                                    class="nation"
+                                <NationCard
+                                    place={posto}
+                                    nazione={nazione}
+                                    cantante={cantante}
+                                    canzone={canzone}
                                     onClick={() => {
                                         setTemporaryLeaderboard(temporaryLeaderboard.filter(i => i !== id))
                                     }}
-                                >
-                                    <div class="picture">{posto}</div>
-                                    <div class="nation-name">{nazione}</div>
-                                    <div class="singer-name">{cantante}</div>
-                                    <div class="canzone">{canzone}</div>
-                                </div>
+                                />
                             )
                         })}
                     </div>
@@ -70,7 +80,7 @@ export const LeaderboardDesktopEditor = ({ leaderboard, setLeaderboard }) => {
     )
 }
 
-export const LeaderboardSorter = ({}) => {
+export const Leaderboard = ({}) => {
     const { user } = useUserContext()
     const userDocRef = doc(db, 'partite', 'eurovision-2024', 'utenti', user.email)
 
@@ -88,37 +98,7 @@ export const LeaderboardSorter = ({}) => {
         return <Spinner />
     }
 
-    return !editing ? (
-        leaderboard.length === 0 ? (
-            <div class="center">
-                <button onClick={() => setEditing(true)}>Crea Classifica</button>
-            </div>
-        ) : (
-            <>
-                <div class="center">
-                    <button onClick={() => setEditing(true)}>Modifica Classifica</button>
-                </div>
-                <div class="leaderboard">
-                    <h3 class="text-center">La tua Classifica</h3>
-                    <div class="nation-list v-box">
-                        {leaderboard.map((id, i) => {
-                            const { nazione, cantante, canzone } = CANTANTI_MAP[id]
-                            const posto = i + 1
-
-                            return (
-                                <div class="nation">
-                                    <div class="picture">{posto}</div>
-                                    <div class="nation-name">{nazione}</div>
-                                    <div class="singer-name">{cantante}</div>
-                                    <div class="canzone">{canzone}</div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </>
-        )
-    ) : (
+    return editing ? (
         <LeaderboardDesktopEditor
             leaderboard={leaderboard}
             setLeaderboard={async newLeaderboard => {
@@ -129,5 +109,34 @@ export const LeaderboardSorter = ({}) => {
                 setEditing(false)
             }}
         />
+    ) : leaderboard.length === 0 ? (
+        <div class="center">
+            <button onClick={() => setEditing(true)}>Crea Classifica</button>
+        </div>
+    ) : (
+        <>
+            <div class="center">
+                <button onClick={() => setEditing(true)}>Modifica Classifica</button>
+            </div>
+            <div class="leaderboard v-box">
+                <h3 class="text-center">La tua Classifica</h3>
+                {leaderboard.length < 26 && (
+                    <div class="text">
+                        <p>
+                            <Icon name="warning" /> Attenzione: la tua classifica è incompleta, inserisci esattamente 26 cantanti per completarla o
+                            non verrà considerata!
+                        </p>
+                    </div>
+                )}
+                <div class="nation-list v-box">
+                    {leaderboard.map((id, i) => {
+                        const { nazione, cantante, canzone } = CANTANTI_MAP[id]
+                        const posto = i + 1
+
+                        return <NationCard place={posto} nazione={nazione} cantante={cantante} canzone={canzone} />
+                    })}
+                </div>
+            </div>
+        </>
     )
 }

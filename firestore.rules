@@ -2,14 +2,49 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // only allow admins to access this collection
-    // match /partite/*/ {
-    //   allow read, write: if request.auth != null && request.auth.token.admin == true;
+    // match /{document=**} {
+    //   allow read, write: if request.time < timestamp.date(2024, 5, 30);
     // }
 
-    match /{document=**} {
-      allow read, write: if request.time < timestamp.date(2024, 5, 30);
+    match /partite/{partita} {
+      function isAdmin() {
+        return request.auth != null && get(/databases/$(database)/documents/partite/$(partita)/utenti/$(request.auth.email)).data.admin == true;
+      }
+
+      allow read: if true;
+      allow write: if isAdmin();
+
+      match /utenti/{utente} {
+        allow create, read, write: if request.auth != null && request.auth.email == utente;
+      }
+
+      match /secret/admin {
+        allow read, write: if isAdmin();
+      } 
     }
   }
+
 }
+
+
+// service cloud.firestore {
+//   match /databases/{database}/documents/some_collection: {
+//     write: if request.auth != null 
+//               && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.admin == true;
+//     read: if request.auth != null;
+//   }
+// }
+
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /cities/{city} {
+//       // Make sure a 'users' document exists for the requesting user before
+//       // allowing any writes to the 'cities' collection
+//       allow create: if request.auth != null && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+
+//       // Allow the user to delete cities if their user document has the
+//       // 'admin' field set to 'true'
+//       allow delete: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.admin == true
+//     }
+//   }
+// }
