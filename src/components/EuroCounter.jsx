@@ -2,17 +2,28 @@ import { db } from '../client/firebase.js'
 
 import { doc } from 'firebase/firestore'
 import { useFirebaseDoc } from '../client/hooks.jsx'
+import { useEffect, useState } from 'preact/hooks'
+import { Spinner } from './Spinner.jsx'
 
 // NOTE: This component is just needed to test the Firebase connection on the homepage
 export const EuroCounter = ({}) => {
-    const partitaDoc = useFirebaseDoc(doc(db, 'partite', 'eurovision-2024'))
-    if (partitaDoc.loading) {
-        return <div class="euro-counter">???</div>
+    const { data: partita, loading: isPartitaLoading } = useFirebaseDoc(doc(db, 'partite', 'eurovision-2024'))
+    if (isPartitaLoading) {
+        return (
+            <div class="euro-counter">
+                <Spinner />
+            </div>
+        )
     }
 
-    const euroVisionDeadline = new Date(partitaDoc.data.scadenza.toDate())
+    const [currentDate, setCurrentDate] = useState(new Date())
 
-    const currentDate = new Date()
+    useEffect(() => {
+        const timer = setInterval(() => setCurrentDate(new Date()), 15 * 1000)
+        return () => clearInterval(timer)
+    }, [])
+
+    const euroVisionDeadline = new Date(partita.scadenza.toDate())
 
     const daysLeft = Math.floor((euroVisionDeadline - currentDate) / (1000 * 60 * 60 * 24))
     const hoursLeft = Math.floor((euroVisionDeadline - currentDate) / (1000 * 60 * 60)) % 24
