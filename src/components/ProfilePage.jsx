@@ -50,7 +50,6 @@ const Profile = ({}) => {
     }
 
     const userDocRef = doc(db, 'partite', 'eurovision-2024', 'utenti', user.email)
-
     const { data: userDoc, loading: isUserDocLoading } = useFirebaseLiveDoc(userDocRef)
 
     useEffect(async () => {
@@ -59,6 +58,10 @@ const Profile = ({}) => {
             await setDoc(userDocRef, { classifica: [], nickname: null })
         }
     }, [isUserDocLoading, userDoc])
+
+    const updateLeaderboard = async newLeaderboard => {
+        await setDoc(userDocRef, { classifica: newLeaderboard }, { merge: true })
+    }
 
     if (isUserDocLoading) {
         return <Spinner />
@@ -83,7 +86,7 @@ const Profile = ({}) => {
                         </ul>
                         <p>Puoi non inserire subito esattamente 26 nazioni e continuare in un secondo momento</p>
                     </div>
-                    <Leaderboard />
+                    <Leaderboard leaderboard={userDoc.classifica} setLeaderboard={newLeaderboard => updateLeaderboard(newLeaderboard)} />
                 </div>
             )}
             <div class="card v-box">

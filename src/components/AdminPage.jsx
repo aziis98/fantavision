@@ -27,7 +27,7 @@ const Admin = ({}) => {
     }
 
     const publishLeaderboard = async () => {
-        await setDoc(partitaDocRef, { vincitori: partitaDoc.data.vincitori }, { merge: true })
+        await setDoc(partitaDocRef, { vincitori: adminDoc }, { merge: true })
     }
 
     const unpublishLeaderboard = async () => {
@@ -40,14 +40,23 @@ const Admin = ({}) => {
             <div class="text">
                 <p>Pubblica la classifica finale dell'Eurovision 2024. In casi estremi puoi annullare la pubblicazione.</p>
             </div>
-            {partitaDoc.data.vincitori ? (
+            {partitaDoc.vincitori ? (
                 <button onClick={() => unpublishLeaderboard()}>Annulla Pubblicazione</button>
             ) : (
                 <button onClick={() => publishLeaderboard()}>Pubblica Classifica</button>
             )}
-            <pre class="center">
-                <code>{JSON.stringify(adminDoc, null, 2)}</code>
-            </pre>
+            <div class="v-box center">
+                <h3>Partita</h3>
+                <pre class="center">
+                    <code>{JSON.stringify(partitaDoc, null, 2)}</code>
+                </pre>
+            </div>
+            <div class="v-box center">
+                <h3>Admin</h3>
+                <pre class="center">
+                    <code>{JSON.stringify(adminDoc, null, 2)}</code>
+                </pre>
+            </div>
         </div>
     )
 }

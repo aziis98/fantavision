@@ -80,33 +80,14 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
     )
 }
 
-// TODO: bubble up the leaderboard state and warning to the parent component
-export const Leaderboard = ({}) => {
-    const { user } = useUserContext()
-    const userDocRef = doc(db, 'partite', 'eurovision-2024', 'utenti', user.email)
-
-    const userDoc = useFirebaseLiveDoc(userDocRef, [])
-    if (userDoc.loading) {
-        return <Spinner />
-    }
-
-    const leaderboard = userDoc.data.classifica
-
+export const Leaderboard = ({ leaderboard, setLeaderboard }) => {
     const [editing, setEditing] = useState(false)
-    const [loading, setLoading] = useState(false)
-
-    if (loading) {
-        return <Spinner />
-    }
 
     return editing ? (
         <LeaderboardEditor
             leaderboard={leaderboard}
-            setLeaderboard={async newLeaderboard => {
-                setLoading(true)
-                await setDoc(userDocRef, { classifica: newLeaderboard }, { merge: true })
-                setLoading(false)
-
+            setLeaderboard={newLeaderboard => {
+                setLeaderboard(newLeaderboard)
                 setEditing(false)
             }}
         />
