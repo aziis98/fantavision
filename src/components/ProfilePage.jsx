@@ -63,7 +63,7 @@ const Profile = ({}) => {
         await setDoc(userDocRef, { classifica: newLeaderboard }, { merge: true })
     }
 
-    if (isUserDocLoading) {
+    if (isUserDocLoading || !userDoc) {
         return <Spinner />
     }
 
