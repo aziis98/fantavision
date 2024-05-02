@@ -3,6 +3,7 @@ import { db } from '../client/firebase.js'
 import { doc } from 'firebase/firestore'
 import { useFirebaseDoc } from '../client/hooks.jsx'
 
+// NOTE: This component is just needed to test the Firebase connection on the homepage
 export const EuroCounter = ({}) => {
     const partitaDoc = useFirebaseDoc(doc(db, 'partite', 'eurovision-2024'))
     if (partitaDoc.loading) {

@@ -66,7 +66,9 @@ const Profile = ({}) => {
 
     return (
         <>
-            {userDoc.nickname ? (
+            {!userDoc.nickname ? (
+                <NicknameChooseCard />
+            ) : (
                 <div class="card v-box">
                     <h1 class="text-center">Benvenuto {userDoc.nickname}</h1>
                     <div class="text">
@@ -83,8 +85,6 @@ const Profile = ({}) => {
                     </div>
                     <Leaderboard />
                 </div>
-            ) : (
-                <NicknameChooseCard />
             )}
             <div class="card v-box">
                 <h2>Account</h2>

@@ -20,7 +20,7 @@ const NationCard = ({ place, nazione, cantante, canzone, ...rest }) => {
     )
 }
 
-export const LeaderboardDesktopEditor = ({ leaderboard, setLeaderboard }) => {
+export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
     const [temporaryLeaderboard, setTemporaryLeaderboard] = useState(leaderboard)
 
     return (
@@ -80,6 +80,7 @@ export const LeaderboardDesktopEditor = ({ leaderboard, setLeaderboard }) => {
     )
 }
 
+// TODO: bubble up the leaderboard state and warning to the parent component
 export const Leaderboard = ({}) => {
     const { user } = useUserContext()
     const userDocRef = doc(db, 'partite', 'eurovision-2024', 'utenti', user.email)
@@ -99,7 +100,7 @@ export const Leaderboard = ({}) => {
     }
 
     return editing ? (
-        <LeaderboardDesktopEditor
+        <LeaderboardEditor
             leaderboard={leaderboard}
             setLeaderboard={async newLeaderboard => {
                 setLoading(true)
@@ -120,11 +121,11 @@ export const Leaderboard = ({}) => {
             </div>
             <div class="leaderboard v-box">
                 <h3 class="text-center">La tua Classifica</h3>
-                {leaderboard.length < 26 && (
+                {leaderboard.length !== 26 && (
                     <div class="text">
                         <p>
-                            <Icon name="warning" /> Attenzione: la tua classifica è incompleta, inserisci esattamente 26 cantanti per completarla o
-                            non verrà considerata!
+                            <Icon name="warning" /> Attenzione: la tua classifica deve avere esattamente 26 cantanti, completala o non verrà
+                            considerata alla fine della scadenza!
                         </p>
                     </div>
                 )}
