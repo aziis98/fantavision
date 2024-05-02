@@ -1,7 +1,9 @@
 ---
+import { AdminPage } from '../components/AdminPage'
 import Base from '../layouts/Base.astro'
 ---
 
 <Base>
     <div class="title">Admin</div>
+    <AdminPage client:only="preact" />
 </Base>

@@ -1,4 +1,7 @@
-import { UserContextProvider } from '../client/hooks.jsx'
+import { doc, setDoc } from 'firebase/firestore'
+import { UserContextProvider, useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
+import { Spinner } from './Spinner.jsx'
+import { db } from '../client/firebase.js'
 
 const Admin = ({}) => {
     const { user, loading: isUserLoading, logout } = useUserContext()
@@ -12,16 +15,39 @@ const Admin = ({}) => {
     }
 
     const adminDocRef = doc(db, 'partite', 'eurovision-2024', 'segreti', 'admin')
-
     const { data: adminDoc, loading: isAdminDocLoading } = useFirebaseLiveDoc(adminDocRef)
-
     if (isAdminDocLoading) {
         return <Spinner />
     }
 
+    const partitaDocRef = doc(db, 'partite', 'eurovision-2024')
+    const { data: partitaDoc, loading: isPartitaDocLoading } = useFirebaseLiveDoc(partitaDocRef)
+    if (isPartitaDocLoading) {
+        return <Spinner />
+    }
+
+    const publishLeaderboard = async () => {
+        await setDoc(partitaDocRef, { vincitori: partitaDoc.data.vincitori }, { merge: true })
+    }
+
+    const unpublishLeaderboard = async () => {
+        await setDoc(partitaDocRef, { vincitori: null }, { merge: true })
+    }
+
     return (
-        <div class="card">
-            <h1>Admin</h1>
+        <div class="card v-box">
+            <h1>Pannello di Controllo</h1>
+            <div class="text">
+                <p>Pubblica la classifica finale dell'Eurovision 2024. In casi estremi puoi annullare la pubblicazione.</p>
+            </div>
+            {partitaDoc.data.vincitori ? (
+                <button onClick={() => unpublishLeaderboard()}>Annulla Pubblicazione</button>
+            ) : (
+                <button onClick={() => publishLeaderboard()}>Pubblica Classifica</button>
+            )}
+            <pre class="center">
+                <code>{JSON.stringify(adminDoc, null, 2)}</code>
+            </pre>
         </div>
     )
 }
