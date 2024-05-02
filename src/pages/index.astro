@@ -1,5 +1,5 @@
 ---
-import { EuroCounter } from '../components/EuroCounter.jsx'
+import { EurovisionCountdown } from '../components/EuroCounter.jsx'
 
 import Base from '../layouts/Base.astro'
 ---
@@ -8,7 +8,7 @@ import Base from '../layouts/Base.astro'
     <div class="logo-title">FantaVision</div>
     <section>
         <p>Partecipa al FantaVision, mancano solo</p>
-        <EuroCounter client:only />
+        <EurovisionCountdown client:only />
         <p>all'inizio dell'EuroVision, invia la tua classifica!</p>
     </section>
     <a role="button" href="/login">Accedi</a>

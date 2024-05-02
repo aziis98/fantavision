@@ -6,7 +6,7 @@ import { useEffect, useState } from 'preact/hooks'
 import { Spinner } from './Spinner.jsx'
 
 // NOTE: This component is just needed to test the Firebase connection on the homepage
-export const EuroCounter = ({}) => {
+export const EurovisionCountdown = ({}) => {
     const { data: partita, loading: isPartitaLoading } = useFirebaseDoc(doc(db, 'partite', 'eurovision-2024'))
     if (isPartitaLoading) {
         return (
