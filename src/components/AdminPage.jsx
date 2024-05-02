@@ -1,5 +1,5 @@
-import { doc, setDoc } from 'firebase/firestore'
-import { UserContextProvider, useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
+import { collection, doc, setDoc } from 'firebase/firestore'
+import { UserContextProvider, useFirebaseLiveCollection, useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
 import { Spinner } from './Spinner.jsx'
 import { db } from '../client/firebase.js'
 import { Leaderboard } from './Leaderboard.jsx'
@@ -24,6 +24,12 @@ const Admin = ({}) => {
     const partitaDocRef = doc(db, 'partite', 'eurovision-2024')
     const { data: partitaDoc, loading: isPartitaDocLoading } = useFirebaseLiveDoc(partitaDocRef)
     if (isPartitaDocLoading) {
+        return <Spinner />
+    }
+
+    const utentiCollectionRef = collection(db, 'partite', 'eurovision-2024', 'utenti')
+    const { docs: utentiDocs, loading: isUtentiDocsLoading } = useFirebaseLiveCollection(utentiCollectionRef)
+    if (isUtentiDocsLoading) {
         return <Spinner />
     }
 
@@ -58,7 +64,7 @@ const Admin = ({}) => {
                 </Leaderboard>
             </div>
             <div class="card v-box">
-                <h1>Debugging</h1>
+                <h1 class="center">Debugging</h1>
                 <div class="v-box center">
                     <h3>Partita</h3>
                     <pre class="center">
@@ -69,6 +75,12 @@ const Admin = ({}) => {
                     <h3>Admin</h3>
                     <pre class="center">
                         <code>{JSON.stringify(adminDoc, null, 2)}</code>
+                    </pre>
+                </div>
+                <div class="v-box center">
+                    <h3>Utenti</h3>
+                    <pre class="center">
+                        <code>{JSON.stringify(utentiDocs, null, 2)}</code>
                     </pre>
                 </div>
             </div>

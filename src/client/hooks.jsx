@@ -86,3 +86,19 @@ export const useFirebaseLiveDoc = (reference, initialValue = null) => {
 
     return { data, loading }
 }
+
+export const useFirebaseLiveCollection = (reference, initialValue = []) => {
+    const [loading, setLoading] = useState(true)
+    const [docs, setDocs] = useState(initialValue)
+
+    useEffect(() => {
+        const unsubscribe = onSnapshot(reference, docsSnapshot => {
+            setDocs(docsSnapshot.docs.map(doc => doc.data()))
+            setLoading(false)
+        })
+
+        return () => unsubscribe()
+    }, [])
+
+    return { docs, loading }
+}
