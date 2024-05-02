@@ -2,6 +2,7 @@ import { doc, setDoc } from 'firebase/firestore'
 import { UserContextProvider, useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
 import { Spinner } from './Spinner.jsx'
 import { db } from '../client/firebase.js'
+import { Leaderboard } from './Leaderboard.jsx'
 
 const Admin = ({}) => {
     const { user, loading: isUserLoading, logout } = useUserContext()
@@ -26,8 +27,12 @@ const Admin = ({}) => {
         return <Spinner />
     }
 
+    const updateAdminLeaderboard = async leaderboard => {
+        await setDoc(adminDocRef, { vincitori: leaderboard }, { merge: true })
+    }
+
     const publishLeaderboard = async () => {
-        await setDoc(partitaDocRef, { vincitori: adminDoc }, { merge: true })
+        await setDoc(partitaDocRef, { vincitori: adminDoc.vincitori }, { merge: true })
     }
 
     const unpublishLeaderboard = async () => {
@@ -35,29 +40,39 @@ const Admin = ({}) => {
     }
 
     return (
-        <div class="card v-box">
-            <h1>Pannello di Controllo</h1>
-            <div class="text">
-                <p>Pubblica la classifica finale dell'Eurovision 2024. In casi estremi puoi annullare la pubblicazione.</p>
+        <>
+            <div class="card v-box">
+                <h1 class="center">Pannello di Controllo</h1>
+                {adminDoc.vincitori &&
+                    (partitaDoc.vincitori ? (
+                        <button onClick={() => unpublishLeaderboard()}>Annulla Pubblicazione</button>
+                    ) : (
+                        <button onClick={() => publishLeaderboard()}>Pubblica Classifica</button>
+                    ))}
+                <Leaderboard leaderboard={adminDoc.vincitori} setLeaderboard={newLeaderboard => updateAdminLeaderboard(newLeaderboard)}>
+                    <Leaderboard.Heading>Classifica Admin</Leaderboard.Heading>
+                    <Leaderboard.Text>
+                        <p>Imposta la classifica dei vincitori, una volta inserita puoi pubblicarla con il tasto sopra</p>
+                    </Leaderboard.Text>
+                    <Leaderboard.NationList leaderboard={adminDoc.vincitori} />
+                </Leaderboard>
             </div>
-            {partitaDoc.vincitori ? (
-                <button onClick={() => unpublishLeaderboard()}>Annulla Pubblicazione</button>
-            ) : (
-                <button onClick={() => publishLeaderboard()}>Pubblica Classifica</button>
-            )}
-            <div class="v-box center">
-                <h3>Partita</h3>
-                <pre class="center">
-                    <code>{JSON.stringify(partitaDoc, null, 2)}</code>
-                </pre>
+            <div class="card v-box">
+                <h1>Debugging</h1>
+                <div class="v-box center">
+                    <h3>Partita</h3>
+                    <pre class="center">
+                        <code>{JSON.stringify(partitaDoc, null, 2)}</code>
+                    </pre>
+                </div>
+                <div class="v-box center">
+                    <h3>Admin</h3>
+                    <pre class="center">
+                        <code>{JSON.stringify(adminDoc, null, 2)}</code>
+                    </pre>
+                </div>
             </div>
-            <div class="v-box center">
-                <h3>Admin</h3>
-                <pre class="center">
-                    <code>{JSON.stringify(adminDoc, null, 2)}</code>
-                </pre>
-            </div>
-        </div>
+        </>
     )
 }
 

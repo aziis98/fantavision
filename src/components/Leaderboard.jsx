@@ -80,7 +80,7 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
     )
 }
 
-export const Leaderboard = ({ leaderboard, setLeaderboard }) => {
+export const Leaderboard = ({ leaderboard, setLeaderboard, children }) => {
     const [editing, setEditing] = useState(false)
 
     return editing ? (
@@ -101,7 +101,7 @@ export const Leaderboard = ({ leaderboard, setLeaderboard }) => {
                 <button onClick={() => setEditing(true)}>Modifica Classifica</button>
             </div>
             <div class="leaderboard v-box">
-                <h3 class="text-center">La tua Classifica</h3>
+                {/* <h3 class="center">La tua Classifica</h3>
                 {leaderboard.length !== 26 && (
                     <div class="text">
                         <p>
@@ -117,8 +117,24 @@ export const Leaderboard = ({ leaderboard, setLeaderboard }) => {
 
                         return <NationCard place={posto} nazione={nazione} cantante={cantante} canzone={canzone} />
                     })}
-                </div>
+                </div> */}
+                {children}
             </div>
         </>
     )
 }
+
+Leaderboard.Heading = ({ children }) => <h3 class="center">{children}</h3>
+
+Leaderboard.Text = ({ children }) => <div class="text center">{children}</div>
+
+Leaderboard.NationList = ({ leaderboard }) => (
+    <div class="nation-list v-box">
+        {leaderboard.map((id, i) => {
+            const { nazione, cantante, canzone } = CANTANTI_MAP[id]
+            const posto = i + 1
+
+            return <NationCard place={posto} nazione={nazione} cantante={cantante} canzone={canzone} />
+        })}
+    </div>
+)

@@ -49,6 +49,8 @@ $heading-scale: 1.33;
         background-clip: text;
         -webkit-text-fill-color: transparent;
 
+        line-height: 1.25;
+
         * + & {
             margin-top: 1rem;
         }
