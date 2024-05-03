@@ -1,10 +1,11 @@
-import { useState } from 'preact/hooks'
+import { useContext, useState } from 'preact/hooks'
 import { CANTANTI, CANTANTI_MAP } from '../client/data.js'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../client/firebase.js'
 import { Spinner } from './Spinner.jsx'
 import { useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
 import { Icon } from './Icon.jsx'
+import { createContext } from 'preact'
 
 const NationCard = ({ place, nazione, cantante, canzone, ...rest }) => {
     return (
@@ -82,28 +83,40 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
     )
 }
 
+const LeaderboardContext = createContext(null)
+
 export const Leaderboard = ({ leaderboard, setLeaderboard, children }) => {
     const [editing, setEditing] = useState(false)
 
-    return editing ? (
-        <LeaderboardEditor
-            leaderboard={leaderboard}
-            setLeaderboard={newLeaderboard => {
-                setLeaderboard(newLeaderboard)
-                setEditing(false)
-            }}
-        />
-    ) : leaderboard.length === 0 ? (
-        <div class="center">
-            <button onClick={() => setEditing(true)}>Crea Classifica</button>
-        </div>
-    ) : (
-        <>
-            <div class="center">
-                <button onClick={() => setEditing(true)}>Modifica Classifica</button>
-            </div>
-            <div class="leaderboard v-box">{children}</div>
-        </>
+    return (
+        <LeaderboardContext.Provider value={setEditing}>
+            {editing ? (
+                <LeaderboardEditor
+                    leaderboard={leaderboard}
+                    setLeaderboard={newLeaderboard => {
+                        setLeaderboard(newLeaderboard)
+                        setEditing(false)
+                    }}
+                />
+            ) : leaderboard.length === 0 ? (
+                <div class="center">
+                    <button onClick={() => setEditing(true)}>Crea Classifica</button>
+                </div>
+            ) : (
+                <>
+                    <div class="leaderboard v-box">{children}</div>
+                </>
+            )}
+        </LeaderboardContext.Provider>
+    )
+}
+
+Leaderboard.EditButton = () => {
+    const setEditing = useContext(LeaderboardContext)
+    return (
+        <button class="center" onClick={() => setEditing(true)}>
+            Modifica Classifica
+        </button>
     )
 }
 

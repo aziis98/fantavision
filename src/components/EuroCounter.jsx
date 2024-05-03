@@ -31,7 +31,8 @@ export const EurovisionCountdown = ({}) => {
 
     return (
         <div class="euro-counter">
-            {daysLeft}&nbsp;{daysLeft === 1 ? 'giorno' : 'giorni'}, {hoursLeft}&nbsp;{hoursLeft === 1 ? 'ora' : 'ore'} e {minutesLeft}&nbsp;
+            {daysLeft}&nbsp;{daysLeft === 1 ? 'giorno' : 'giorni'}, {hoursLeft}&nbsp;{hoursLeft === 1 ? 'ora' : 'ore'} e{' '}
+            {minutesLeft}&nbsp;
             {minutesLeft === 1 ? 'minuto' : 'minuti'}
         </div>
     )

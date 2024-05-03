@@ -55,8 +55,12 @@ const Admin = ({}) => {
                     ) : (
                         <button onClick={() => publishLeaderboard()}>Pubblica Classifica</button>
                     ))}
-                <Leaderboard leaderboard={adminDoc.vincitori} setLeaderboard={newLeaderboard => updateAdminLeaderboard(newLeaderboard)}>
+                <Leaderboard
+                    leaderboard={adminDoc.vincitori}
+                    setLeaderboard={newLeaderboard => updateAdminLeaderboard(newLeaderboard)}
+                >
                     <Leaderboard.Heading>Classifica Admin</Leaderboard.Heading>
+                    <Leaderboard.EditButton />
                     <Leaderboard.Text>
                         <p>Imposta la classifica dei vincitori, una volta inserita puoi pubblicarla con il tasto sopra</p>
                     </Leaderboard.Text>

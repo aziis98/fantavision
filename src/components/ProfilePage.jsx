@@ -103,6 +103,7 @@ const Profile = ({}) => {
                         setLeaderboard={newLeaderboard => updateLeaderboard(newLeaderboard)}
                     >
                         <Leaderboard.Heading>La tua Classifica</Leaderboard.Heading>
+                        <Leaderboard.EditButton />
                         <Leaderboard.Text>
                             {userDoc.classifica.length !== 26 && (
                                 <>
