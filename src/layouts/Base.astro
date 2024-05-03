@@ -4,7 +4,7 @@ import '@fontsource/kaushan-script/latin.css'
 import '@fontsource/open-sans/latin.css'
 
 import '../styles.scss'
-import { NavLoginProfileButton } from '../components/NavLoginProfileButton'
+import { LoginProfileButton } from '../components/LoginProfileButton'
 
 const { title, isHomepage, hasMath } = Astro.props
 ---
@@ -65,7 +65,7 @@ const { title, isHomepage, hasMath } = Astro.props
             <div class="links">
                 <a role="button" href="/regolamento">Regolamento</a>
                 <a role="button" href="/about">About</a>
-                <NavLoginProfileButton client:load />
+                <LoginProfileButton client:load />
             </div>
         </nav>
         <main>

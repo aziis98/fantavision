@@ -38,20 +38,22 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
                 <div class="source column">
                     <h3>Partecipanti</h3>
                     <div class="drag-region v-box">
-                        {CANTANTI.filter(({ id }) => !temporaryLeaderboard.includes(id)).map(({ id, nazione, cantante, canzone }) => (
-                            <NationCard
-                                nazione={nazione}
-                                cantante={cantante}
-                                canzone={canzone}
-                                onClick={() => {
-                                    if (temporaryLeaderboard.includes(id)) {
-                                        setTemporaryLeaderboard([...temporaryLeaderboard.filter(i => i !== id), id])
-                                    } else {
-                                        setTemporaryLeaderboard([...temporaryLeaderboard, id])
-                                    }
-                                }}
-                            />
-                        ))}
+                        {CANTANTI.filter(({ id }) => !temporaryLeaderboard.includes(id)).map(
+                            ({ id, nazione, cantante, canzone }) => (
+                                <NationCard
+                                    nazione={nazione}
+                                    cantante={cantante}
+                                    canzone={canzone}
+                                    onClick={() => {
+                                        if (temporaryLeaderboard.includes(id)) {
+                                            setTemporaryLeaderboard([...temporaryLeaderboard.filter(i => i !== id), id])
+                                        } else {
+                                            setTemporaryLeaderboard([...temporaryLeaderboard, id])
+                                        }
+                                    }}
+                                />
+                            )
+                        )}
                     </div>
                 </div>
                 <div class="target column">
@@ -100,26 +102,7 @@ export const Leaderboard = ({ leaderboard, setLeaderboard, children }) => {
             <div class="center">
                 <button onClick={() => setEditing(true)}>Modifica Classifica</button>
             </div>
-            <div class="leaderboard v-box">
-                {/* <h3 class="center">La tua Classifica</h3>
-                {leaderboard.length !== 26 && (
-                    <div class="text">
-                        <p>
-                            <Icon name="warning" /> Attenzione: la tua classifica deve avere esattamente 26 cantanti, completala o non verrà
-                            considerata alla fine della scadenza!
-                        </p>
-                    </div>
-                )}
-                <div class="nation-list v-box">
-                    {leaderboard.map((id, i) => {
-                        const { nazione, cantante, canzone } = CANTANTI_MAP[id]
-                        const posto = i + 1
-
-                        return <NationCard place={posto} nazione={nazione} cantante={cantante} canzone={canzone} />
-                    })}
-                </div> */}
-                {children}
-            </div>
+            <div class="leaderboard v-box">{children}</div>
         </>
     )
 }

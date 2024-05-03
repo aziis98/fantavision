@@ -1,5 +1,6 @@
 ---
 import { EurovisionCountdown } from '../components/EuroCounter.jsx'
+import { LoginProfileButton } from '../components/LoginProfileButton'
 
 import Base from '../layouts/Base.astro'
 ---
@@ -11,5 +12,5 @@ import Base from '../layouts/Base.astro'
         <EurovisionCountdown client:only />
         <p>all'inizio dell'EuroVision, invia la tua classifica!</p>
     </section>
-    <a role="button" href="/login">Accedi</a>
+    <LoginProfileButton client:load />
 </Base>

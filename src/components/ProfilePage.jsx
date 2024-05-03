@@ -31,7 +31,13 @@ const NicknameChooseCard = ({}) => {
                 Loggato come <UserEmail />
             </div>
             <div class="h-box">
-                <input class="grow" type="text" placeholder="nickname..." value={nickname} onInput={e => setNickname(e.target.value)} />
+                <input
+                    class="grow"
+                    type="text"
+                    placeholder="nickname..."
+                    value={nickname}
+                    onInput={e => setNickname(e.target.value)}
+                />
                 <button onClick={() => handleSubmit()}>OK</button>
             </div>
         </div>
@@ -75,10 +81,16 @@ const Profile = ({}) => {
                 <div class="card v-box">
                     <h1 class="text-center">Benvenuto {userDoc.nickname}</h1>
                     <div class="text">
-                        <p>Crea la tua classifica inserendo le nazioni nella classifica nell'ordine in cui pensi che si classificheranno</p>
+                        <p>
+                            Crea la tua classifica inserendo le nazioni nella classifica nell'ordine in cui pensi che si
+                            classificheranno
+                        </p>
                         <ul>
                             <li>
-                                <p>Clicca una nazione nella colonna dei partecipanti per aggiungerla alla fine alla tua classifica</p>
+                                <p>
+                                    Clicca una nazione nella colonna dei partecipanti per aggiungerla alla fine alla tua
+                                    classifica
+                                </p>
                             </li>
                             <li>
                                 <p>Clicca una nazione nella colonne della tua classifica per rimuoverla</p>
@@ -86,7 +98,21 @@ const Profile = ({}) => {
                         </ul>
                         <p>Puoi non inserire subito esattamente 26 nazioni e continuare in un secondo momento</p>
                     </div>
-                    <Leaderboard leaderboard={userDoc.classifica} setLeaderboard={newLeaderboard => updateLeaderboard(newLeaderboard)} />
+                    <Leaderboard
+                        leaderboard={userDoc.classifica}
+                        setLeaderboard={newLeaderboard => updateLeaderboard(newLeaderboard)}
+                    >
+                        <Leaderboard.Heading>La tua Classifica</Leaderboard.Heading>
+                        <Leaderboard.Text>
+                            {userDoc.classifica.length !== 26 && (
+                                <>
+                                    Attenzione: la tua classifica deve avere esattamente 26 cantanti, completala o non verrà
+                                    considerata alla fine della scadenza!
+                                </>
+                            )}
+                        </Leaderboard.Text>
+                        <Leaderboard.NationList leaderboard={userDoc.classifica} />
+                    </Leaderboard>
                 </div>
             )}
             <div class="card v-box">

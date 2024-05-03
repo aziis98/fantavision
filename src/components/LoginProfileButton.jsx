@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks'
 import { Spinner } from './Spinner.jsx'
 
-export const NavLoginProfileButton = ({}) => {
+export const LoginProfileButton = ({}) => {
     const [useUserHook, setUseUserHook] = useState(null)
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export const NavLoginProfileButton = ({}) => {
     if (loading) {
         return (
             <a role="button" href="/login">
-                <Spinner />
+                Login
             </a>
         )
     }

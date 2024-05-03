@@ -213,6 +213,10 @@ button,
 
     // boh, this might be a reasonable default
     place-self: center;
+
+    &:not(.compact) {
+        min-width: 8rem;
+    }
 }
 
 input[type='text'] {
@@ -564,11 +568,6 @@ body {
             display: grid;
             grid-auto-flow: column;
             gap: 1rem;
-
-            button,
-            [role='button'] {
-                min-width: 8rem;
-            }
         }
     }
 
