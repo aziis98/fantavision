@@ -15,7 +15,15 @@ const NationCard = ({ id, place, nazione, cantante, canzone, ...rest }) => {
                 <img src={`/cantanti/${id}.jpg`} alt="" />
             </div>
             <div class="v-box">
-                <div class="card-title cool-text">{nazione}</div>
+                <div class="card-title cool-text">
+                    {place ? (
+                        <>
+                            {place}. {nazione}
+                        </>
+                    ) : (
+                        nazione
+                    )}
+                </div>
                 <div class="card-subtitle">
                     {cantante} &bull; {canzone}
                 </div>
@@ -45,13 +53,17 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
                         {CANTANTI.filter(({ id }) => !temporaryLeaderboard.includes(id)).map(
                             ({ id, nazione, cantante, canzone }) => (
                                 <NationCard
+                                    key={id}
                                     id={id}
                                     nazione={nazione}
                                     cantante={cantante}
                                     canzone={canzone}
                                     onClick={() => {
                                         if (temporaryLeaderboard.includes(id)) {
-                                            setTemporaryLeaderboard([...temporaryLeaderboard.filter(i => i !== id), id])
+                                            setTemporaryLeaderboard([
+                                                ...temporaryLeaderboard.filter(i => i !== id),
+                                                id,
+                                            ])
                                         } else {
                                             setTemporaryLeaderboard([...temporaryLeaderboard, id])
                                         }
@@ -70,6 +82,7 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
 
                             return (
                                 <NationCard
+                                    key={id}
                                     id={id}
                                     place={posto}
                                     nazione={nazione}
@@ -135,7 +148,16 @@ Leaderboard.NationList = ({ leaderboard }) => (
             const { nazione, cantante, canzone } = CANTANTI_MAP[id]
             const posto = i + 1
 
-            return <NationCard id={id} place={posto} nazione={nazione} cantante={cantante} canzone={canzone} />
+            return (
+                <NationCard
+                    key={id}
+                    id={id}
+                    place={posto}
+                    nazione={nazione}
+                    cantante={cantante}
+                    canzone={canzone}
+                />
+            )
         })}
     </div>
 )

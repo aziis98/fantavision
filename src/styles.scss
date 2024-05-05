@@ -73,7 +73,11 @@ $heading-scale: 1.33;
 
     p {
         text-align: left;
-        line-height: 1.5;
+        line-height: 1.75;
+    }
+
+    p + p {
+        margin-top: 0.5rem;
     }
 
     ol,
@@ -584,7 +588,11 @@ body {
             text-align: center;
 
             // background: #ffc02e;
-            background: linear-gradient(to bottom right, var(--logo-title-color-1) 0%, var(--logo-title-color-2) 100%);
+            background: linear-gradient(
+                to bottom right,
+                var(--logo-title-color-1) 0%,
+                var(--logo-title-color-2) 100%
+            );
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;

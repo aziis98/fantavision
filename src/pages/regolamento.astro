@@ -8,8 +8,8 @@ import Base from '../layouts/Base.astro'
         <ol>
             <li>
                 <p>
-                    <strong>Cosa devi fare:</strong> crea la tua classifica dei 26 partecipanti della finale; hai tempo fino alle 20:00
-                    del martedì 7 maggio 2024.
+                    <strong>Cosa devi fare:</strong> crea la tua classifica dei 26 partecipanti della finale; hai tempo
+                    fino alle 20:00 del martedì 7 maggio 2024.
                 </p>
             </li>
             <li>
@@ -17,43 +17,47 @@ import Base from '../layouts/Base.astro'
             </li>
             <li>
                 <p>
-                    <strong>Cosa succederà:</strong> la tua classifica verrà confrontata con la classifica ufficiale che verrà caricata
-                    dopo la finale del sabato 11 maggio 2024. Il confronto consisterà nel calcolo della varianza della classifica personale
-                    rispetto a quella ufficiale attraverso una formula spiegata nella seguente sezione.
+                    <strong>Cosa succederà:</strong> la tua classifica verrà confrontata con la classifica ufficiale
+                    che verrà caricata dopo la finale del sabato 11 maggio 2024. Il confronto consisterà nel calcolo
+                    della varianza della classifica personale rispetto a quella ufficiale attraverso una formula spiegata
+                    nella seguente sezione.
                 </p>
             </li>
             <li>
                 <p>
-                    <strong>Calcolo varianza:</strong> consideriamo i due vettori $X$ e $Y$ della classifica personale e di quella
-                    ufficiale rispettivamente, di 26 componenti ciascuno. Consideriamo $x_i$ la i-esima posizione della classifica
-                    $X$ e $y_j$ la j-esima posizione della classifica $Y$. Se il partecipante posto nella posizione $x_i $ viene trovato
-                    in una certa posizione $y_j$ verrà applicato il calcolo della seguente formula
-                    <span is:raw> $$ \frac{{(x_i - y_j)^2}}{{26}} $$ </span>
-                    altrimenti sarà assegnato un malus d’ufficio corrispondente al valore massimo, cioè un confronto tra prima e 26esima
-                    posizione (circa 24.04), più un $\varepsilon=1/26$. Quest’ultima eventualità corrisponde all’aver inserito nella
-                    propria classifica un partecipante che non si sia qualificato per la serata finale. Il punteggio finale sarà dato
-                    dalla somma di questi valori.
+                    <strong>Calcolo varianza:</strong> consideriamo i due vettori $X$ e $Y$ della classifica personale
+                    e di quella ufficiale rispettivamente, di 26 componenti ciascuno. Consideriamo $x_i$ la i-esima
+                    posizione della classifica $X$ e $y_j$ la j-esima posizione della classifica $Y$. Se il partecipante
+                    posto nella posizione $x_i $ viene trovato in una certa posizione $y_j$ verrà applicato il calcolo
+                    della seguente formula
+                    <span is:raw> $$ \frac{(x_i - y_j)^2}{26} $$ </span>
+                    altrimenti sarà assegnato un malus d’ufficio corrispondente al valore massimo, cioè un confronto
+                    tra prima e 26esima posizione (circa 24.04), più un $\varepsilon=1/26$. Quest’ultima eventualità
+                    corrisponde all’aver inserito nella propria classifica un partecipante che non si sia qualificato
+                    per la serata finale. Il punteggio finale sarà dato dalla somma di questi valori.
                 </p>
             </li>
             <li>
                 <p>
-                    <strong>Filosofia del calcolo:</strong> premiare ad esempio chi porrà i cantanti a, b, c, in 3<sup>a</sup>, 7<sup
+                    <strong>Filosofia del calcolo:</strong> premiare ad esempio chi porrà i cantanti a, b, c, in 3<sup
                         >a</sup
-                    >, 8<sup>a</sup> posizione che poi si classificheranno effettivamente in 4<sup>a</sup>, 6<sup>a</sup>, 11<sup
+                    >, 7<sup>a</sup>, 8<sup>a</sup> posizione che poi si classificheranno effettivamente in 4<sup
                         >a</sup
-                    > posizione, rispetto a chi ne porrà uno in 3<sup>a</sup> posizione e che si classificherà 21&deg;.
+                    >, 6<sup>a</sup>, 11<sup>a</sup> posizione, rispetto a chi ne porrà uno in 3<sup>a</sup> posizione
+                    e che si classificherà 21&deg;.
                 </p>
             </li>
             <li>
                 <p>
-                    <strong>Punteggio finale:</strong> verrà stilata una classifica di voi partecipanti dove vincerà chi otterrà il
-                    punteggio più basso, ovvero avrà caricato la classifica più simile a quella ufficiale.
+                    <strong>Punteggio finale:</strong> verrà stilata una classifica di voi partecipanti dove vincerà
+                    chi otterrà il punteggio più basso, ovvero avrà caricato la classifica più simile a quella ufficiale.
                 </p>
             </li>
             <li>
                 <p>
-                    <strong>Nota importante:</strong> la scelta morale di piazzare in ultima posizione i partecipanti di paesi particolarmente
-                    belli(ci) è caldamente consigliata seppure il calcolo della varianza verrà applicato ugualmente.
+                    <strong>Nota importante:</strong> la scelta morale di piazzare in ultima posizione i partecipanti
+                    di paesi particolarmente belli(ci) è caldamente consigliata seppure il calcolo della varianza verrà
+                    applicato ugualmente.
                 </p>
             </li>
         </ol>
