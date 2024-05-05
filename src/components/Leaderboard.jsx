@@ -7,10 +7,13 @@ import { useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
 import { Icon } from './Icon.jsx'
 import { createContext } from 'preact'
 
-const NationCard = ({ place, nazione, cantante, canzone, ...rest }) => {
+const NationCard = ({ id, place, nazione, cantante, canzone, ...rest }) => {
     return (
         <div class="nation h-box centered" {...rest}>
-            <div class="picture">{place ?? ''}</div>
+            <div class="picture">
+                {/* <div class="place">{place ?? ''}</div> */}
+                <img src={`/cantanti/${id}.jpg`} alt="" />
+            </div>
             <div class="v-box">
                 <div class="card-title cool-text">{nazione}</div>
                 <div class="card-subtitle">
@@ -42,6 +45,7 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
                         {CANTANTI.filter(({ id }) => !temporaryLeaderboard.includes(id)).map(
                             ({ id, nazione, cantante, canzone }) => (
                                 <NationCard
+                                    id={id}
                                     nazione={nazione}
                                     cantante={cantante}
                                     canzone={canzone}
@@ -66,6 +70,7 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
 
                             return (
                                 <NationCard
+                                    id={id}
                                     place={posto}
                                     nazione={nazione}
                                     cantante={cantante}
@@ -130,7 +135,7 @@ Leaderboard.NationList = ({ leaderboard }) => (
             const { nazione, cantante, canzone } = CANTANTI_MAP[id]
             const posto = i + 1
 
-            return <NationCard place={posto} nazione={nazione} cantante={cantante} canzone={canzone} />
+            return <NationCard id={id} place={posto} nazione={nazione} cantante={cantante} canzone={canzone} />
         })}
     </div>
 )

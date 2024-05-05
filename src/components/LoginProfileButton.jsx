@@ -29,11 +29,11 @@ export const LoginProfileButton = ({}) => {
 
     return user ? (
         <a role="button" href="/profile">
-            Profile
+            Profilo
         </a>
     ) : (
         <a role="button" href="/login">
-            Login
+            Accedi
         </a>
     )
 }

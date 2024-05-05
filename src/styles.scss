@@ -65,15 +65,20 @@ $heading-scale: 1.33;
 
 .text {
     max-width: 50rem;
+    color: #f7fbff;
+
+    strong {
+        font-weight: 700;
+    }
 
     p {
         text-align: left;
         line-height: 1.5;
     }
 
+    ol,
     ul {
         margin: 1rem 0;
-        color: #fff;
         list-style-type: disc;
 
         li {
@@ -94,7 +99,7 @@ p {
 
     font-size: 20px;
     font-weight: 500;
-    color: #fff;
+    color: #f7fbff;
 }
 
 pre,
@@ -119,33 +124,64 @@ pre {
     --logo-title-color-2: #4bf7e9;
 }
 
-.logo-title {
-    font-family: 'Kaushan Script', cursive;
-    font-size: 100px;
-    font-weight: 600;
+.logo {
+    --gap: 0;
 
-    text-align: center;
+    .logo-title {
+        font-family: 'Kaushan Script', cursive;
+        font-size: 100px;
+        font-weight: 600;
 
-    padding: 0.5rem;
+        text-align: center;
 
-    // background: #ffc02e;
-    background: linear-gradient(to bottom right, var(--logo-title-color-1) 0%, var(--logo-title-color-2) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+        padding: 0.5rem;
 
-    text-shadow: 0 0 100px #ffffff88;
+        // background: #ffc02e;
+        background: linear-gradient(to bottom right, var(--logo-title-color-1) 0%, var(--logo-title-color-2) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
 
-    user-select: none;
+        text-shadow: 0 0 100px #ffffff88;
 
-    transition: transform 150ms ease-out;
+        user-select: none;
 
-    &:hover {
-        transform: scale(1.1) rotate(-2deg);
+        transition: transform 150ms ease-out;
+
+        &:hover {
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        @media (max-width: 800px) {
+            font-size: 64px;
+        }
     }
 
-    @media (max-width: 800px) {
-        font-size: 64px;
+    .logo-subtitle {
+        font-family: 'Kaushan Script', cursive;
+        // font-family: 'Open Sans', sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+
+        text-align: center;
+
+        padding: 0.5rem;
+
+        color: #fff;
+
+        text-shadow: 0 0 100px #ffffff88;
+
+        user-select: none;
+
+        transition: transform 150ms ease-out;
+
+        &:hover {
+            transform: scale(1.075) rotate(+3deg);
+        }
+
+        @media (max-width: 800px) {
+            font-size: 32px;
+        }
     }
 }
 
@@ -402,8 +438,14 @@ input[type='text'] {
 
             border-radius: 100%;
 
-            font-size: 20px;
-            font-weight: 700;
+            position: relative;
+
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
         }
 
         .card-title {
@@ -536,7 +578,18 @@ body {
         padding-left: 1.5rem;
 
         & > .logo {
-            @extend .logo-title;
+            font-family: 'Kaushan Script', cursive;
+            font-weight: 600;
+
+            text-align: center;
+
+            // background: #ffc02e;
+            background: linear-gradient(to bottom right, var(--logo-title-color-1) 0%, var(--logo-title-color-2) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            user-select: none;
 
             display: grid;
             place-content: center;
