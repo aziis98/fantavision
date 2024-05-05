@@ -1,5 +1,10 @@
 import { collection, doc, setDoc } from 'firebase/firestore'
-import { UserContextProvider, useFirebaseLiveCollection, useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
+import {
+    UserContextProvider,
+    useFirebaseLiveCollection,
+    useFirebaseLiveDoc,
+    useUserContext,
+} from '../client/hooks.jsx'
 import { Spinner } from './Spinner.jsx'
 import { db } from '../client/firebase.js'
 import { Leaderboard } from './Leaderboard.jsx'
@@ -62,7 +67,10 @@ const Admin = ({}) => {
                     <Leaderboard.Heading>Classifica Admin</Leaderboard.Heading>
                     <Leaderboard.EditButton />
                     <Leaderboard.Text>
-                        <p>Imposta la classifica dei vincitori, una volta inserita puoi pubblicarla con il tasto sopra</p>
+                        <p>
+                            Imposta la classifica dei vincitori, una volta inserita puoi pubblicarla con il tasto
+                            sopra
+                        </p>
                     </Leaderboard.Text>
                     <Leaderboard.NationList leaderboard={adminDoc.vincitori} />
                 </Leaderboard>

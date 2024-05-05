@@ -270,6 +270,23 @@ button,
     &:not(.compact) {
         min-width: 8rem;
     }
+
+    &.icon {
+        padding: 0;
+        border-radius: 100%;
+
+        border: none;
+
+        min-width: unset;
+        width: 1.5rem;
+        height: 1.5rem;
+
+        transition: none;
+
+        .material-symbols-outlined {
+            font-size: 15px;
+        }
+    }
 }
 
 input[type='text'] {
@@ -429,10 +446,10 @@ input[type='text'] {
     user-select: none;
 
     .nation {
-        padding: 0.5rem;
+        padding: 0 0.5rem;
         border-radius: 0.5rem;
 
-        min-width: 20rem;
+        min-width: 22rem;
         width: 100%;
         max-width: 30rem;
 
@@ -445,23 +462,18 @@ input[type='text'] {
         }
 
         .picture {
+            padding: 0.5rem 0;
+
             display: grid;
             place-content: center;
 
-            background: hsla(0, 0%, 100%, 0.2);
-
-            width: 3rem;
-            height: 3rem;
-
-            border-radius: 100%;
-
             position: relative;
 
-            overflow: hidden;
-
             img {
-                width: 100%;
-                height: 100%;
+                width: 3rem;
+                height: 3rem;
+
+                border-radius: 100%;
             }
         }
 

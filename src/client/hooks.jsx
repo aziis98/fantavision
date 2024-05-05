@@ -93,7 +93,7 @@ export const useFirebaseLiveCollection = (reference, initialValue = []) => {
 
     useEffect(() => {
         const unsubscribe = onSnapshot(reference, docsSnapshot => {
-            setDocs(docsSnapshot.docs.map(doc => doc.data()))
+            setDocs(Object.fromEntries(docsSnapshot.docs.map(doc => [doc.id, doc.data()])))
             setLoading(false)
         })
 

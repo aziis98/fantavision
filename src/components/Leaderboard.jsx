@@ -7,14 +7,13 @@ import { useFirebaseLiveDoc, useUserContext } from '../client/hooks.jsx'
 import { Icon } from './Icon.jsx'
 import { createContext } from 'preact'
 
-const NationCard = ({ id, place, nazione, cantante, canzone, ...rest }) => {
+const NationCard = ({ id, place, nazione, cantante, canzone, moveUp, moveDown, ...rest }) => {
     return (
         <div class="nation h-box centered" {...rest}>
             <div class="picture">
-                {/* <div class="place">{place ?? ''}</div> */}
                 <img src={`/cantanti/${id}.jpg`} alt="" />
             </div>
-            <div class="v-box">
+            <div class="v-box grow">
                 <div class="card-title cool-text">
                     {place ? (
                         <>
@@ -28,6 +27,28 @@ const NationCard = ({ id, place, nazione, cantante, canzone, ...rest }) => {
                     {cantante} &bull; {canzone}
                 </div>
             </div>
+            {(moveUp || moveDown) && (
+                <div class="v-box">
+                    <button
+                        class="icon"
+                        onClick={e => {
+                            e.stopPropagation()
+                            moveUp()
+                        }}
+                    >
+                        <Icon name="arrow_upward" />
+                    </button>
+                    <button
+                        class="icon"
+                        onClick={e => {
+                            e.stopPropagation()
+                            moveDown()
+                        }}
+                    >
+                        <Icon name="arrow_downward" />
+                    </button>
+                </div>
+            )}
         </div>
     )
 }
@@ -90,6 +111,26 @@ export const LeaderboardEditor = ({ leaderboard, setLeaderboard }) => {
                                     canzone={canzone}
                                     onClick={() => {
                                         setTemporaryLeaderboard(temporaryLeaderboard.filter(i => i !== id))
+                                    }}
+                                    moveUp={() => {
+                                        const index = temporaryLeaderboard.indexOf(id)
+                                        if (index === 0) return
+                                        setTemporaryLeaderboard([
+                                            ...temporaryLeaderboard.slice(0, index - 1),
+                                            id,
+                                            temporaryLeaderboard[index - 1],
+                                            ...temporaryLeaderboard.slice(index + 1),
+                                        ])
+                                    }}
+                                    moveDown={() => {
+                                        const index = temporaryLeaderboard.indexOf(id)
+                                        if (index === temporaryLeaderboard.length - 1) return
+                                        setTemporaryLeaderboard([
+                                            ...temporaryLeaderboard.slice(0, index),
+                                            temporaryLeaderboard[index + 1],
+                                            id,
+                                            ...temporaryLeaderboard.slice(index + 2),
+                                        ])
                                     }}
                                 />
                             )
