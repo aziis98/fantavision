@@ -25,11 +25,11 @@ import Base from '../layouts/Base.astro'
             </li>
             <li>
                 <p>
-                    <strong>Calcolo varianza:</strong> consideriamo i due vettori $X$ e $Y$ della classifica personale
-                    e di quella ufficiale rispettivamente, di 26 componenti ciascuno. Consideriamo $x_i$ la i-esima
-                    posizione della classifica $X$ e $y_j$ la j-esima posizione della classifica $Y$. Se il partecipante
-                    posto nella posizione $x_i $ viene trovato in una certa posizione $y_j$ verrà applicato il calcolo
-                    della seguente formula
+                    <strong>Calcolo varianza:</strong> consideriamo i due vettori $X$ e $Y$ rappresentanti la classifica
+                    personale e quella ufficiale, di 26 componenti ciascuno. Consideriamo $x_i$ la i-esima posizione
+                    della classifica $X$ e $y_j$ la j-esima posizione della classifica $Y$. Se il partecipante posto
+                    nella posizione $x_i $ viene trovato in una certa posizione $y_j$ verrà applicato il calcolo della
+                    seguente formula
                     <span is:raw> $$ \frac{(x_i - y_j)^2}{26} $$ </span>
                     altrimenti sarà assegnato un malus d’ufficio corrispondente al valore massimo, cioè un confronto
                     tra prima e 26esima posizione (circa 24.04), più un $\varepsilon=1/26$. Quest’ultima eventualità

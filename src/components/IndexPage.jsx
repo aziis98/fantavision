@@ -22,24 +22,27 @@ export const IndexPage = ({}) => {
 
     if (!isDeadlinePassed) {
         return (
-            <>
-                <p>Partecipa al FantaVision, mancano solo</p>
+            <div class="text">
+                <p class="text-center">Partecipa al FantaVision, mancano solo</p>
                 <EurovisionCountdown />
-                <p>all'inizio dell'EuroVision, invia la tua classifica!</p>
-            </>
+                <p class="text-center">
+                    all'inizio dell'<a href="https://eurovision.tv/">EuroVision Song Contest</a>, invia la tua
+                    classifica!
+                </p>
+            </div>
         )
     }
 
     if (isDeadlinePassed && !partita.vincitori) {
         return (
-            <>
+            <div class="text">
                 <p>L'EuroVision è già iniziato, non sono più ammesse iscrizioni</p>
-            </>
+            </div>
         )
     }
 
     return (
-        <>
+        <div class="text">
             <p>È uscita la classifica finale del FantaVision!</p>
             <div class="h-box">
                 <a role="button" href="/classifica">
@@ -47,6 +50,6 @@ export const IndexPage = ({}) => {
                 </a>
                 <LoginProfileButton />
             </div>
-        </>
+        </div>
     )
 }

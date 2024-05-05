@@ -67,8 +67,21 @@ $heading-scale: 1.33;
     max-width: 50rem;
     color: #f7fbff;
 
+    .text-center {
+        text-align: center;
+    }
+
     strong {
         font-weight: 700;
+    }
+
+    a {
+        color: #b3f095;
+        text-decoration: 2px underline transparent;
+
+        &:hover {
+            text-decoration: 2px underline #b3f095;
+        }
     }
 
     p {
@@ -605,6 +618,7 @@ body {
             padding-top: 0.25rem;
             padding-bottom: 0.25rem;
             padding-left: 0;
+            padding-right: 0.5rem;
 
             font-size: 45px;
 

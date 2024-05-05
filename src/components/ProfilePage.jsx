@@ -82,18 +82,17 @@ const Profile = ({}) => {
                     <h1 class="text-center">Benvenuto {userDoc.nickname}</h1>
                     <div class="text">
                         <p>
-                            Crea la tua classifica inserendo le nazioni nella classifica nell'ordine in cui pensi che si
-                            classificheranno
+                            Crea la tua classifica inserendo le nazioni nell'ordine in cui pensi si posizioneranno
                         </p>
                         <ul>
                             <li>
                                 <p>
-                                    Clicca una nazione nella colonna dei partecipanti per aggiungerla alla fine alla tua
-                                    classifica
+                                    Clicca una nazione nella colonna dei partecipanti per aggiungerla alla fine
+                                    della tua classifica
                                 </p>
                             </li>
                             <li>
-                                <p>Clicca una nazione nella colonne della tua classifica per rimuoverla</p>
+                                <p>Clicca una nazione nella colonna della tua classifica per rimuoverla</p>
                             </li>
                         </ul>
                         <p>Puoi non inserire subito esattamente 26 nazioni e continuare in un secondo momento</p>
@@ -106,10 +105,12 @@ const Profile = ({}) => {
                         <Leaderboard.EditButton />
                         <Leaderboard.Text>
                             {userDoc.classifica.length !== 26 && (
-                                <>
-                                    Attenzione: la tua classifica deve avere esattamente 26 cantanti, completala o non verrà
-                                    considerata alla fine della scadenza!
-                                </>
+                                <div class="text">
+                                    <p>
+                                        Attenzione: la tua classifica deve avere esattamente 26 cantanti,
+                                        completala o non verrà considerata alla fine della scadenza!
+                                    </p>
+                                </div>
                             )}
                         </Leaderboard.Text>
                         <Leaderboard.NationList leaderboard={userDoc.classifica} />
