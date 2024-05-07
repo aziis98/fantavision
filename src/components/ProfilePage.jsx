@@ -6,6 +6,7 @@ import { db } from '../client/firebase.js'
 import { useEffect, useState } from 'preact/hooks'
 import { Leaderboard } from './Leaderboard.jsx'
 import { Spinner } from './Spinner.jsx'
+import { Icon } from './Icon.jsx'
 
 const NicknameChooseCard = ({}) => {
     const { user } = useUserContext()
@@ -89,7 +90,7 @@ const Profile = ({}) => {
                 <NicknameChooseCard />
             ) : (
                 <div class="card v-box">
-                    <h1 class="text-center">Benvenuto {userDoc.nickname}</h1>
+                    <h1 class="text-center">Benvenut* {userDoc.nickname}</h1>
                     {!isDeadlinePassed ? (
                         <div class="text">
                             <p>
@@ -148,8 +149,9 @@ const Profile = ({}) => {
                                     {userDoc.classifica.length !== 26 && (
                                         <div class="text">
                                             <p>
-                                                Attenzione: la tua classifica deve avere esattamente 26 cantanti,
-                                                completala o non verrà considerata alla fine della scadenza!
+                                                <Icon name="error" /> la tua classifica deve avere{' '}
+                                                <strong>esattamente 26 cantanti</strong>, modificala o non verrà
+                                                considerata alla fine della scadenza!
                                             </p>
                                         </div>
                                     )}
