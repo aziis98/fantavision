@@ -73,6 +73,16 @@ const Profile = ({}) => {
         return <Spinner />
     }
 
+    const { data: partita, loading: isPartitaLoading } = useFirebaseDoc(doc(db, 'partite', 'eurovision-2024'))
+    if (isPartitaLoading) {
+        return <Spinner />
+    }
+
+    const euroVisionDeadline = new Date(partita.scadenza.toDate())
+    const currentDate = new Date()
+
+    const isDeadlinePassed = currentDate >= euroVisionDeadline
+
     return (
         <>
             {!userDoc.nickname ? (
@@ -80,39 +90,72 @@ const Profile = ({}) => {
             ) : (
                 <div class="card v-box">
                     <h1 class="text-center">Benvenuto {userDoc.nickname}</h1>
-                    <div class="text">
-                        <p>
-                            Crea la tua classifica inserendo le nazioni nell'ordine in cui pensi si posizioneranno
-                        </p>
-                        <ul>
-                            <li>
-                                <p>
-                                    Clicca una nazione nella colonna dei partecipanti per aggiungerla alla fine
-                                    della tua classifica
-                                </p>
-                            </li>
-                            <li>
-                                <p>Clicca una nazione nella colonna della tua classifica per rimuoverla</p>
-                            </li>
-                        </ul>
-                        <p>Puoi non inserire subito esattamente 26 nazioni e continuare in un secondo momento</p>
-                    </div>
+                    {!isDeadlinePassed ? (
+                        <div class="text">
+                            <p>
+                                Crea la tua classifica inserendo le nazioni nell'ordine in cui pensi si
+                                posizioneranno
+                            </p>
+                            <ul>
+                                <li>
+                                    <p>
+                                        Clicca una nazione nella colonna dei partecipanti per aggiungerla alla fine
+                                        della tua classifica
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>Clicca una nazione nella colonna della tua classifica per rimuoverla</p>
+                                </li>
+                            </ul>
+                            <p>
+                                Puoi non inserire subito esattamente 26 nazioni e continuare in un secondo momento
+                            </p>
+                        </div>
+                    ) : (
+                        <div class="text-center">
+                            <p>L'EuroVision è già iniziato, non sono più ammesse iscrizioni</p>
+                        </div>
+                    )}
                     <Leaderboard
                         leaderboard={userDoc.classifica}
                         setLeaderboard={newLeaderboard => updateLeaderboard(newLeaderboard)}
                     >
                         <Leaderboard.Heading>La tua Classifica</Leaderboard.Heading>
-                        <Leaderboard.EditButton />
-                        <Leaderboard.Text>
-                            {userDoc.classifica.length !== 26 && (
-                                <div class="text">
-                                    <p>
-                                        Attenzione: la tua classifica deve avere esattamente 26 cantanti,
-                                        completala o non verrà considerata alla fine della scadenza!
-                                    </p>
-                                </div>
-                            )}
-                        </Leaderboard.Text>
+                        {isDeadlinePassed ? (
+                            <>
+                                <Leaderboard.Text>
+                                    {userDoc.classifica.length === 26 ? (
+                                        <div class="text">
+                                            <p>
+                                                La tua classifica è completa, attendi la fine della scadenza per
+                                                vedere i risultati!
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <div class="text">
+                                            <p>
+                                                Purtroppo la tua classifica non è completa e la scadenza è già
+                                                passata
+                                            </p>
+                                        </div>
+                                    )}
+                                </Leaderboard.Text>
+                            </>
+                        ) : (
+                            <>
+                                <Leaderboard.EditButton />
+                                <Leaderboard.Text>
+                                    {userDoc.classifica.length !== 26 && (
+                                        <div class="text">
+                                            <p>
+                                                Attenzione: la tua classifica deve avere esattamente 26 cantanti,
+                                                completala o non verrà considerata alla fine della scadenza!
+                                            </p>
+                                        </div>
+                                    )}
+                                </Leaderboard.Text>
+                            </>
+                        )}
                         <Leaderboard.NationList leaderboard={userDoc.classifica} />
                     </Leaderboard>
                 </div>
