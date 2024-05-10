@@ -585,6 +585,33 @@ input[type='text'] {
     }
 }
 
+.classifica-list {
+    --gap: 1rem;
+
+    & > .classifica-item {
+        padding: 1rem;
+        border-radius: 1rem;
+
+        min-width: 22rem;
+        width: 100%;
+        max-width: 30rem;
+
+        background: hsla(0, 0%, 100%, 0.2);
+
+        transition: background 64ms ease-out;
+
+        &:hover {
+            background: hsla(0, 0%, 100%, 0.3);
+        }
+
+        @media screen and (max-width: $device-mid) {
+            min-width: initial;
+            width: 100%;
+            max-width: initial;
+        }
+    }
+}
+
 // Structure
 
 body {

@@ -27,6 +27,8 @@ service cloud.firestore {
 
       match /utenti/{email} {
         allow read: if isAdmin();
+        allow read: if request.auth != null
+          && request.time > get(/databases/$(database)/documents/partite/$(partita)).data.scadenza;
       }
 
       match /segreti/{key} {
