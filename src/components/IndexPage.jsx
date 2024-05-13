@@ -42,7 +42,7 @@ export const IndexPage = ({}) => {
     }
 
     return (
-        <div class="text">
+        <div class="v-box">
             <p>È uscita la classifica finale del FantaVision!</p>
             <div class="h-box">
                 <a role="button" href="/classifica">
